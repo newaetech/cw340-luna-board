@@ -10,16 +10,14 @@ Latest (Revision 03) known issues:
 
  * HyperDebug support is missing entirely (not routed).
 
+## CW341 Kintex Ultrascale KU095 Target
 
-## CW341 Kintex K410T Target
+### Status
+
+
+
+## CW342 Kintex K410T Target
 
 ### Status
 
 Early alpha has been built & tested.
-
-
-## CW342 Kintex Ultrascale KU095 Target
-
-### Status
-
- 
