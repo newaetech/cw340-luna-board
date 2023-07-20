@@ -1,0 +1,9 @@
+Record=TopLevelDocument|FileName=CW342_Edge.SchDoc|SheetNumber=1
+Record=NoMainPathDocument|SourceDocument=CW342_Edge.SchDoc|FileName=CW342_FPGA_CFG.SchDoc|SheetNumber=7
+Record=NoMainPathDocument|SourceDocument=CW342_Edge.SchDoc|FileName=CW342_FPGA_DECOUP.SchDoc|SheetNumber=9
+Record=NoMainPathDocument|SourceDocument=CW342_Edge.SchDoc|FileName=CW342_FPGA_MGT.SchDoc|SheetNumber=6
+Record=NoMainPathDocument|SourceDocument=CW342_Edge.SchDoc|FileName=CW342_FPGA_PWR.SchDoc|SheetNumber=8
+Record=NoMainPathDocument|SourceDocument=CW342_Edge.SchDoc|FileName=CW342_FPGAIO_1.SchDoc|SheetNumber=3
+Record=NoMainPathDocument|SourceDocument=CW342_Edge.SchDoc|FileName=CW342_FPGAIO_3.SchDoc|SheetNumber=5
+Record=NoMainPathDocument|SourceDocument=CW342_Edge.SchDoc|FileName=CW342_FPGIO_2.SchDoc|SheetNumber=4
+Record=NoMainPathDocument|SourceDocument=CW342_Edge.SchDoc|FileName=CW342_XADC.SchDoc|SheetNumber=2
