@@ -52,8 +52,75 @@ The FPGA board also contains multiple features specific for power analysis & fau
 ## Block Diagram & Overview
 
 
+## Firmware Upgrade
+
+If you need to upgrade the firmware on the SAM3X (control microcontroller), this is currently done through two steps:
+
+1. Erase the SAM3X, causing it to enter bootloader mode.
+2. Program the SAM3X with the new firmware.
+
+See the following for details of these steps.
+
+!!! tip "Automatic Bootloader"
+    Our other devices have a simplified "automatic" bootloader programmer - currently the CW340 firmware isn't distributed with ChipWhisperer, so for now use the following manual method.
+
+### Step 1: Erasing the SAM3X
+
+This can be done in two ways. Via Python:
+
+```
+import chipwhisperer as cw
+target = cw.target(None, cw.targets.CW310)
+programmer = cw.SAMFWLoader(scope=target)
+programmer.enter_bootloader(really_enter=True)
+```
+
+Alternative, short the jumper holes marked "ERASE" (J20) with a paperclip, tweezers, etc.
+
+If this part is successful, the leds D23 and D9 will be dimly lit. The CW310 will then **re-enumerate as a serial port**.
+
+### Step 2: Reprogramming the SAM3X
+
+In the following step, you may need to add explicit permission for the bootloader serial port. This is a different USB interface than is normally used by the device.
+
+Get the latest firmware from GIT, note that the file is stored as part of the CW310 repo:
+
+```
+wget https://github.com/newaetech/cw310-bergen-board/raw/main/microfw/CW310/Debug/CW340.bin
+```
+
+And then:
+
+```python
+import chipwhisperer as cw
+programmer = cw.SAMFWLoader(scope=None)
+programmer.program('COM3', 'CW340.bin')
+```
+
+If this is successful you will see something like:
+
+```
+Opening firmware...
+Opened!
+Connecting...
+b'\n\r'
+Connected!
+Erasing...
+Erased!
+Programming file CW310.bin...
+Programmed!
+Verifying...
+Verify OK!
+Bootloader disabled. Please power cycle device.
+```
+
+Press the "USB RST" button (SW5) on the board or power cycle it.
+
+
+!!! tip "No Touch Bootloader"
+    The latest git will support an automatic bootloader which does not require you to power cycle or touch the physical board. If your board automatically re-enumerates, you do not need to do the "USB RST" command.
+
 ## Reference Material (Schematics)
 
-* [View schematics online](https://github.com/newaetech/cw310-bergen-board/blob/main/docs/BergenBoard_Rev06C.PDF)
-* [Download PDF of Schematics](https://github.com/newaetech/cw310-bergen-board/raw/main/docs/BergenBoard_Rev06C.PDF)
-* [Vivado XDC Constraint File](https://github.com/newaetech/cw310-bergen-board/tree/main/pins)
+* [View schematics online](https://github.com/newaetech/cw340-luna-board/blob/main/docs/NPCA-CW340-LUNABOARD-05.PDF)
+* [Download PDF of Schematics](https://github.com/newaetech/cw340-luna-board/raw/main/docs/NPCA-CW340-LUNABOARD-05.PDF)
