@@ -1,5 +1,7 @@
 # CW340 Luna Board (OpenTitan Baseboard)
 
+[ ![CW340 OTKIT Luna Board](Images/cw340-otkit-boards.jpg "CW340 OTKIT Luna Board") ](Images/cw340-otkit-boards.jpg)
+
 The ChipWhisperer CW340 "Luna Board" is an advanced evaluation platform for FPGA-based security SoC, RoT, or HSM based designs. It is specifically designed to meet the needs of security evaluation purposes, while having the features you would expect in an easy-to-use FPGA development board.
 
 The CW340 is designed specifically for working with the OpenTitan design, either in FPGA emulation or with a production silicon device.
