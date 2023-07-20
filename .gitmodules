@@ -1,0 +1,6 @@
+[submodule "fpga/fpga-common"]
+	path = fpga/fpga-common
+	url = https://github.com/newaetech/fpga-common.git
+[submodule "fpga/hyperram"]
+	path = fpga/hyperram
+	url = https://github.com/newaetech/hyperram.git
