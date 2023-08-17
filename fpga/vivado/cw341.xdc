@@ -3,7 +3,7 @@ set_property IOSTANDARD LVCMOS18 [get_ports *]
 
 set_property -dict { PACKAGE_PIN C24   IOSTANDARD LVCMOS18 } [get_ports { usb_clk }]; # labeled /USB_RD on schematic
 
-set_property -dict { PACKAGE_PIN AN26  IOSTANDARD   LVCMOS18 } [get_ports { USB_ALEn }];  # NOTE: using OT_IOA0 for now (needs jumper cable on 340)
+set_property -dict { PACKAGE_PIN AM34  IOSTANDARD   LVCMOS18 } [get_ports { USB_ALEn }];  # NOTE: using USB_SPI_CS; needs jumper between J23 and J24
 set_property -dict { PACKAGE_PIN  C23  IOSTANDARD   LVCMOS18 } [get_ports { USB_nRD   }]; # labeled /USB_RD on schematic
 set_property -dict { PACKAGE_PIN  D23  IOSTANDARD   LVCMOS18 } [get_ports { USB_nCE   }]; # labeled /USB_CE on schematic
 
