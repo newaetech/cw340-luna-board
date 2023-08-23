@@ -105,7 +105,9 @@ module cw341_reg #(
    input  wire [31:0]                           I_auto_current_addr,
    input  wire [31:0]                           I_auto_errors,
    input  wire [31:0]                           I_auto_error_addr,
+   output reg  [31:0]                           O_auto_start_addr,
    output reg  [31:0]                           O_auto_stop_addr,
+   output reg  [7:0]                            O_wait_value,
 
 // SRAM:
    output reg                                   O_sram_en,
@@ -257,6 +259,7 @@ module cw341_reg #(
          O_auto_check2 <= 1;
          O_auto_lfsr_mode <= 1;
          reg_test_leds <= 0;
+         O_wait_value <= 4;
       end
 
       else begin
@@ -276,6 +279,8 @@ module cw341_reg #(
                `REG_LB_ACTION:          reg_lb_action <= write_data[3:0];
                `REG_LB_MANUAL:          {O_auto_lfsr_mode, O_auto_check1, O_auto_check2, O_auto_clear_fail, O_lb_manual} <= write_data[4:0];
                `REG_LB_STOP_ADDR:       O_auto_stop_addr[reg_bytecnt*8 +: 8] <= write_data;
+               `REG_LB_START_ADDR:      O_auto_start_addr[reg_bytecnt*8 +: 8] <= write_data;
+               `REG_BUSY_WAIT:          O_wait_value <= write_data;
 
                // SRAM:
                `REG_SRAM_EN:            O_sram_en <= write_data[0];

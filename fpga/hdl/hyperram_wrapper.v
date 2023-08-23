@@ -86,7 +86,11 @@ module hyperram_wrapper (
     output wire                         hypr2_ckn,
     output wire                         hypr2_rst_l,
     output wire                         hypr2_cs_l,
-    output wire                         hypr2_busy
+    output wire                         hypr2_busy,
+
+    input  wire                         hypr1_busy_stuck,
+    input  wire                         hypr2_busy_stuck
+
 );
 
     wire        clk_90p;
@@ -207,7 +211,8 @@ module hyperram_wrapper (
         .dram_rst_l     (hypr1_rst_l     ),
         .dram_cs_l      (hypr1_cs_l      ),
 
-        .hyperram_busy  (hypr1_busy      )
+        .hyperram_busy  (hypr1_busy      ),
+        .busy_stuck     (hypr1_busy_stuck)
     );
 
     hr_pll_example U_hyperram2 (
@@ -236,7 +241,8 @@ module hyperram_wrapper (
         .dram_rst_l     (hypr2_rst_l     ),
         .dram_cs_l      (hypr2_cs_l      ),
 
-        .hyperram_busy  (hypr2_busy      )
+        .hyperram_busy  (hypr2_busy      ),
+        .busy_stuck     (hypr2_busy_stuck)
     );
 `endif
 

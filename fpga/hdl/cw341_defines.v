@@ -63,6 +63,8 @@ either expressed or implied, of NewAE Technology Inc.
 `define REG_LB_STOP_ADDR                8'h89
 `define REG_LB_ITERATIONS               8'h8a
 `define REG_LB_CURRENT_ADDR             8'h8b
+`define REG_BUSY_WAIT                   8'h8c
+`define REG_LB_START_ADDR               8'h8d
 
 // SRAM:
 `define REG_SRAM_EN                     8'h40

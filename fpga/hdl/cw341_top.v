@@ -181,7 +181,10 @@ module cw341_top #(
     wire [31:0] auto_current_addr;
     wire [31:0] auto_errors;
     wire [31:0] auto_error_addr;
+    wire [31:0] auto_addr_start;
     wire [31:0] auto_addr_stop;
+
+    wire [7:0]  wait_value;
 
 
     wire [31:0] sram_runs;
@@ -300,7 +303,9 @@ module cw341_top #(
        .I_auto_current_addr     (auto_current_addr ),
        .I_auto_errors           (auto_errors     ),
        .I_auto_error_addr       (auto_error_addr ),
+       .O_auto_start_addr       (auto_addr_start ),
        .O_auto_stop_addr        (auto_addr_stop  ),
+       .O_wait_value            (wait_value  ),
 
        .lb1_wr                  (manual_lb1_wr         ),
        .lb1_rd                  (manual_lb1_rd         ),
@@ -424,7 +429,11 @@ module cw341_top #(
         .hypr2_ckn                      (hypr2_ckn   ),
         .hypr2_rst_l                    (hypr2_rst_l ),
         .hypr2_cs_l                     (hypr2_cs_l  ),
-        .hypr2_busy                     (hypr2_busy  )
+        .hypr2_busy                     (hypr2_busy  ),
+
+        .hypr1_busy_stuck               (hypr1_busy_stuck ),
+        .hypr2_busy_stuck               (hypr2_busy_stuck )
+
     );
 
     simple_hyperram_rwtest U_hyperram_test(
@@ -441,7 +450,9 @@ module cw341_top #(
         .current_addr                   (auto_current_addr),
         .total_errors                   (auto_errors    ),
         .error_addr                     (auto_error_addr),
+        .addr_start                     (auto_addr_start ),
         .addr_stop                      (auto_addr_stop ),
+        .wait_value                     (wait_value     ),
                                                      
         .lb1_wr                         (auto_lb1_wr    ),
         .lb1_rd                         (auto_lb1_rd    ),
@@ -539,6 +550,44 @@ module cw341_top #(
        .xadc_error              ()
     ); 
 
+
+    /*
+`ifdef ILA_RAW_HR
+    wire la_clk;
+    wire la_locked;
+  la_clk_wiz instance_name
+  (
+    // Clock out ports
+    .clk_out1   (la_clk),
+    .reset      (reset),
+    .locked     (la_locked),
+    .clk_in1    (ext_clk)
+  );
+
+    ila_raw_hw U_ila_raw_hr1 (
+       .clk            (la_clk),
+       .probe0         (hypr1_dq),              // 7:0
+       .probe1         (hypr1_rwds),
+       .probe2         (hypr1_ckp),
+       .probe3         (hypr1_ckn),
+       .probe4         (hypr1_rst_l),
+       .probe5         (hypr1_cs_l),
+       .probe6         (hypr1_busy_stuck)
+    );
+
+    ila_raw_hw U_ila_raw_hr2 (
+       .clk            (la_clk),
+       .probe0         (hypr2_dq),              // 7:0
+       .probe1         (hypr2_rwds),
+       .probe2         (hypr2_ckp),
+       .probe3         (hypr2_ckn),
+       .probe4         (hypr2_rst_l),
+       .probe5         (hypr2_cs_l),
+       .probe6         (hypr2_busy_stuck)
+    );
+
+`endif
+    */
 
 
 endmodule

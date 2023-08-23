@@ -41,7 +41,9 @@ module simple_hyperram_rwtest (
     output wire [31:0]                  current_addr,
     output reg  [31:0]                  total_errors,
     output reg  [31:0]                  error_addr,
+    input  wire [31:0]                  addr_start,
     input  wire [31:0]                  addr_stop,
+    input  wire [7:0]                   wait_value,
 
     output wire                         lb1_wr,
     output wire                         lb1_rd,
@@ -121,7 +123,7 @@ reg [31:0] haddr = 32'b0;
 reg [1:0] errors;
 reg set_write_mode;
 reg set_read_mode;
-reg [2:0] wait_count;
+reg [7:0] wait_count;
 reg restart_wait_count;
 
 // FSM issues write command + data, read command:
@@ -185,7 +187,7 @@ always @(*) begin
             if (~active)
                 next_state = pS_IDLE;
             // it takes a few cycles for busy to assert, so wait a bit before acting on it:
-            else if (hr1_busy || hr2_busy || wait_count < 4)
+            else if (hr1_busy || hr2_busy || wait_count < wait_value)
                 next_state = pS_WAIT_NOT_BUSY;
             else if (haddr == addr_stop) begin
                 reset_address = 1'b1;
@@ -292,7 +294,7 @@ always @ (posedge clk) begin
 
         if (restart_wait_count)
             wait_count <= 0;
-        else
+        else if (wait_count < wait_value)
             wait_count <= wait_count + 1;
 
         if (set_write_mode)
@@ -301,7 +303,7 @@ always @ (posedge clk) begin
             writing <= 1'b0;
 
         if (reset_address)
-            haddr <= 0;
+            haddr <= addr_start;
         else begin
             if (incr_address)
                 haddr <= haddr + 1;
@@ -397,7 +399,8 @@ ila_hyperram_test U_ila_hyperram_test (
         .probe22        (hr1_busy           ),
         .probe23        (haddr              ), // 31:0
         .probe24        (hr1_busy_stuck     ),
-        .probe25        (hr2_busy_stuck     )
+        .probe25        (hr2_busy_stuck     ),
+        .probe26        (hr2_busy           )
 );
 `endif
 
