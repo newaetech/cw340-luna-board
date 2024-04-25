@@ -70,23 +70,23 @@ This can be done in two ways. Via Python:
 
 ```
 import chipwhisperer as cw
-target = cw.target(None, cw.targets.CW310)
+target = cw.target(None, cw.targets.CW340)
 programmer = cw.SAMFWLoader(scope=target)
 programmer.enter_bootloader(really_enter=True)
 ```
 
 Alternative, short the jumper holes marked "ERASE" (J20) with a paperclip, tweezers, etc.
 
-If this part is successful, the leds D23 and D9 will be dimly lit. The CW310 will then **re-enumerate as a serial port**.
+If this part is successful, the leds D23 and D9 will be dimly lit. The CW340 will then **re-enumerate as a serial port**.
 
 ### Step 2: Reprogramming the SAM3X
 
 In the following step, you may need to add explicit permission for the bootloader serial port. This is a different USB interface than is normally used by the device.
 
-Get the latest firmware from GIT, note that the file is stored as part of the CW310 repo:
+Get the latest firmware from GIT, note that the file is stored as part of the CW340 repo:
 
 ```
-wget https://github.com/newaetech/cw310-bergen-board/raw/main/microfw/CW310/Debug/CW340.bin
+wget https://github.com/newaetech/cw310-bergen-board/raw/main/microfw/CW310/src/CW340.bin
 ```
 
 And then:
@@ -107,7 +107,7 @@ b'\n\r'
 Connected!
 Erasing...
 Erased!
-Programming file CW310.bin...
+Programming file CW340.bin...
 Programmed!
 Verifying...
 Verify OK!
