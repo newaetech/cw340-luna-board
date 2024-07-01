@@ -49,8 +49,56 @@ The FPGA board also contains multiple features specific for power analysis & fau
 * BGA is mounted with open area to allow removal of heat spreader with minimal risk.
 
 
-## Block Diagram & Overview
+## Usage
 
+### OpenTitan
+
+If you want to use OpenTitan with the CW340, we recommend following their instructions at https://github.com/lowRISC/opentitan/blob/master/doc/getting_started/setup_fpga.md
+
+### Custom BitStreams
+
+If instead you want to build and develop your own bitstreams, you may find it more convenient to
+use the ChipWhisperer Python API. Using the board in this way is very similar to using the
+CW305 or CW310 boards:
+
+```python
+# program bitstream
+import chipwhisperer as cw
+target = cw.target(None, cw.targets.CW340, bsfile="/path/to/bitstream.bit", force=True)
+
+# Set PLLs
+target.pll.pll_enable_set(True)
+target.pll.pll_outenable_set(False, 0)
+target.pll.pll_outenable_set(True, 1)
+target.pll.pll_outenable_set(False, 2)
+
+# run at 10 MHz:
+target.pll.pll_outfreq_set(10E6, 1)
+```
+
+### Jumpers
+
+#### UART Jumpers (JP1-JP4)
+
+The default UART IO pins for OpenTitan (OT_IOC3, OT_IOC4, OT_IOA0, and OT_IOA1) can be routed to the following locations:
+
+1. Onboard FTDI UART chip
+1. Onboard SAM3X microcontroller
+1. Header pins (J18)
+
+For most situations, we recommend routing to the FTDI UART pins.
+
+#### Other Jumpers
+
+Most other jumpers on the CW340 will not need to be touched by the user. They do the following:
+
+* JP5 routes the OpenTitan power on reset pin to either a switch (USRSW0) or J29
+* JP6 routes 1.8V to User SPI 1
+* JP7 has GPIOL0 and GPIOL1 of FTDI channel D
+* JP8 has PLL_CLK2 and the /USB_CE signal
+* JP9 can be used to set VCCIOB to either 1.2V, 1.8V, or 3.3V
+* JP11 and JP12 set OT_IOC5 and OT_IOC8, respectively, to either FTDI control or SAM3X control
+* JP13 sets the 1.8V supply for the FTDI chip to either come from the SAM 1.8V regulator, or from a separate regulator 
 
 ## Firmware Upgrade
 
@@ -124,3 +172,10 @@ Press the "USB RST" button (SW5) on the board or power cycle it.
 
 * [View schematics online](https://github.com/newaetech/cw340-luna-board/blob/main/docs/NPCA-CW340-LUNABOARD-05.PDF)
 * [Download PDF of Schematics](https://github.com/newaetech/cw340-luna-board/raw/main/docs/NPCA-CW340-LUNABOARD-05.PDF)
+
+## Errata
+
+### PLL
+
+PLLs 1 and 2 are swapped from the CW305. The ChipWhisperer Python library swaps them back such that setting
+PLL1 sets PLL_CLK1 on the schematic. Third party libraries may or may not perform this swap.
