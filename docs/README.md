@@ -76,6 +76,17 @@ target.pll.pll_outenable_set(False, 2)
 target.pll.pll_outfreq_set(10E6, 1)
 ```
 
+### UART
+
+The CW340 has two options for using UART: 2 FTDI UART channels, and a custom SAM3X microcontroller
+driver with 2 channels. `lsusb` on Linux and Device Manager on Windows can be used to
+figure out which serial ports are associated with which. The following image shows the two FTDI
+channels on the top and the two SAM3X channels on the bottom:
+
+![](Images/UART_channels.png)
+
+The following is an output from `lsusb -tv`:
+
 ### Jumpers
 
 #### UART Jumpers (JP1-JP4)
