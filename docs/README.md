@@ -87,6 +87,47 @@ channels on the top and the two SAM3X channels on the bottom:
 
 The following is an output from `lsusb -tv`:
 
+```
+/:  Bus 03.Port 1: Dev 1, Class=root_hub, Driver=xhci_hcd/4p, 480M
+    ID 1d6b:0002 Linux Foundation 2.0 root hub
+    |__ Port 2: Dev 2, If 0, Class=Hub, Driver=hub/4p, 480M
+        ID 2109:2813 VIA Labs, Inc. VL813 Hub
+        |__ Port 2: Dev 4, If 0, Class=Hub, Driver=hub/4p, 480M
+            ID 0424:2534 Microchip Technology, Inc. (formerly SMSC) 
+            |__ Port 1: Dev 7, If 3, Class=Communications, Driver=cdc_acm, 480M
+                ID 2b3e:c340 NewAE Technology Inc. 
+            |__ Port 1: Dev 7, If 1, Class=Communications, Driver=cdc_acm, 480M
+                ID 2b3e:c340 NewAE Technology Inc. 
+            |__ Port 1: Dev 7, If 4, Class=CDC Data, Driver=cdc_acm, 480M
+                ID 2b3e:c340 NewAE Technology Inc. 
+            |__ Port 1: Dev 7, If 2, Class=CDC Data, Driver=cdc_acm, 480M
+                ID 2b3e:c340 NewAE Technology Inc. 
+            |__ Port 1: Dev 7, If 0, Class=Vendor Specific Class, Driver=, 480M
+                ID 2b3e:c340 NewAE Technology Inc. 
+            |__ Port 2: Dev 6, If 3, Class=Vendor Specific Class, Driver=ftdi_sio, 480M
+                ID 0403:6011 Future Technology Devices International, Ltd FT4232H Quad HS USB-UART/FIFO IC
+            |__ Port 2: Dev 6, If 1, Class=Vendor Specific Class, Driver=ftdi_sio, 480M
+                ID 0403:6011 Future Technology Devices International, Ltd FT4232H Quad HS USB-UART/FIFO IC
+            |__ Port 2: Dev 6, If 2, Class=Vendor Specific Class, Driver=ftdi_sio, 480M
+                ID 0403:6011 Future Technology Devices International, Ltd FT4232H Quad HS USB-UART/FIFO IC
+            |__ Port 2: Dev 6, If 0, Class=Vendor Specific Class, Driver=ftdi_sio, 480M
+                ID 0403:6011 Future Technology Devices International, Ltd FT4232H Quad HS USB-UART/FIFO IC
+```
+
+#### Troubleshooting: /dev/ttyUSB* Not Showing Up
+
+If the FTDI UART channels aren't showing up in Linux (usually `/dev/ttyUSB1-4`), the most likely cause is that the FTDI driver isn't being loaded.
+
+Run the following command to install and load the driver:
+
+```bash
+sudo apt install linux-modules-extra-`uname -r` # install driver
+sudo modprobe ftdi_sio # load driver
+```
+
+By default, this will only load the driver for this boot session, meaning if you restart, you'll need to rerun the `modprobe` command. To load
+the FTDI driver on boot, append `ftdi_sio` to `/dev/modules`
+
 ### Jumpers
 
 #### UART Jumpers (JP1-JP4)
@@ -98,6 +139,8 @@ The default UART IO pins for OpenTitan (OT_IOC3, OT_IOC4, OT_IOA0, and OT_IOA1) 
 1. Header pins (J18)
 
 For most situations, we recommend routing to the FTDI UART pins.
+
+Note that TX/RX are from the FPGA's perspective, so that things are sent to the FPGA on the RX line and sent from the FPGA on the TX line.
 
 #### Other Jumpers
 
