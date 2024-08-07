@@ -13,6 +13,20 @@ jobs:
         dst_repo_name: documentation-main
         src_path: /docs/README.md
         dst_path: /docs/Targets/CW340 Luna Board.md
+        src_branch: main
+        dst_branch: master
+
+  copy_md2:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Copycat
+      uses: andstor/copycat-action@v3.2.3
+      with:
+        personal_token: ${{ secrets.PERSONAL_TOKEN }}
+        dst_owner: newaetech
+        dst_repo_name: documentation-main
+        src_path: /docs/CW340 OT Quickstart.md
         dst_path: /docs/Targets/CW340 OT Quickstart.md
         src_branch: main
         dst_branch: master
