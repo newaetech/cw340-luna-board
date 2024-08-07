@@ -13,6 +13,7 @@ jobs:
         dst_repo_name: documentation-main
         src_path: /docs/README.md
         dst_path: /docs/Targets/CW340 Luna Board.md
+        dst_path: /docs/Targets/CW340 OT Quickstart.md
         src_branch: main
         dst_branch: master
         
