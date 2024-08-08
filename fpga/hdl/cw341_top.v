@@ -47,8 +47,18 @@ module cw341_top #(
     input wire                          USB_ALEn,       // USB_SPARE3
     //input wire                        usb_trigger,    // High when trigger requested
 
+`ifdef CW_CONNECTOR
+    // 20-Pin Connector Stuff
+    output wire                         CWIO_IO4,
+    output wire                         CWIO_HS1,
+    input  wire                         CWIO_HS2,
+
+
+`else // incompatible I/O levels
     // Buttons/LEDs on Board
     input wire [7:0]                    USRDIP,
+
+`endif
 
     input wire                          OT_PORN,
     input wire                          USRSW0,     // Pushbutton SW0, used here as reset
@@ -58,11 +68,6 @@ module cw341_top #(
     input wire                          PLL_CLK1,
     input wire                          PLL_CLK2_ORIG,
     input wire                          PLL_CLK2_ALT,
-
-    // 20-Pin Connector Stuff
-    //output wire                         CWIO_IO4,
-    //output wire                         CWIO_HS1,
-    //input  wire                         CWIO_HS2,
 
     // SRAM:
     output wire [pSRAM_ADDR_WIDTH-1:0]  SRAM_A,
@@ -230,6 +235,14 @@ module cw341_top #(
 
     assign read_data = read_data_main | read_data_xadc;
 
+`ifdef CW_CONNECTOR
+    wire [7:0] USRDIP = 8'b0;
+    assign CWIO_HS1 = ext_clk;
+`else
+    wire CWIO_HS2 = 1'b0;
+
+`endif
+
     cw341_usb_reg_main #(
         .pBYTECNT_SIZE          (pBYTECNT_SIZE),
         .pUSE_ALE               (1),
@@ -346,9 +359,10 @@ module cw341_top #(
        .I_pll_clk1              (PLL_CLK1),
        .I_pll_clk2_orig         (PLL_CLK2_ORIG),
        .I_pll_clk2_alt          (PLL_CLK2_ALT),
-       .O_cw_clkout             (CWIO_HS1),
+       .O_cw_clkout             (),
        .O_ext_clk               (ext_clk)
     );
+
 
 
    wire aes_clk;
@@ -379,9 +393,7 @@ module cw341_top #(
        .busy_o          (aes_busy)
    );
 
-   //assign CWIO_IO4 = aes_busy;
-   wire CWIO_HS2 = 1'b0;
-   wire CWIO_HS1;
+   assign CWIO_IO4 = aes_busy;
 
 
    assign lb1_wr        = (lb_manual)? manual_lb1_wr : auto_lb1_wr;
