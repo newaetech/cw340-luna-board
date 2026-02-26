@@ -1,0 +1,4 @@
+Define CW_CONNECTOR if building the AES bitfile.
+This is due to incompatible I/O voltage requirements on bank 64: DIP switches require 1.8V, 20-pin signals require 3.3V.
+Ensure that the CW340 VCCIOB jumper is set correctly for the bitfile in use.
+
