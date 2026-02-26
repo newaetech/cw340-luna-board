@@ -1,0 +1,16 @@
+Record=TopLevelDocument|FileName=CW341_Edge.SchDoc|SheetNumber=1
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGA_CFG.SchDoc|SheetNumber=4
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGA_DECOUP.SchDoc|SheetNumber=2
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGA_MGT.SchDoc|SheetNumber=5
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGA_PWR.SchDoc|SheetNumber=3
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGA_USERIOA.SchDoc|SheetNumber=16
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGAIO_1.SchDoc|SheetNumber=6
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGAIO_2.SchDoc|SheetNumber=7
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGAIO_3.SchDoc|SheetNumber=8
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGAIO_4.SchDoc|SheetNumber=9
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_FPGAIO_5.SchDoc|SheetNumber=10
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_HeatsinkFan.SchDoc|SheetNumber=11
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_HyperRam.SchDoc|SheetNumber=15
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_PowerMeasure.SchDoc|SheetNumber=12
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_SRAM.SchDoc|SheetNumber=13
+Record=NoMainPathDocument|SourceDocument=CW341_Edge.SchDoc|FileName=CW341_XADC.SchDoc|SheetNumber=14
